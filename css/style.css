@@ -7,14 +7,37 @@ body {
 	position: relative;
 }
 
-main {
-	width: 60%;
-	margin: 30px auto;
+main,footer {
 	padding: 5%;
+	margin: 30px auto;
+}
+
+main {
 	background-color: #fff;
+	width: 60%;
+}
+
+footer {
+	background-color: #34b4dc;
+	width: 30%;
 }
 
 #main-logo {
 	height: 56px;
 	width: 331px;
+}
+
+#logo-ev {
+	width: 173px;
+    height: 36px;
+}
+
+.main-selection{
+	font-size: 18px;
+	color: #fff;
+}
+
+.row {
+	margin-left: 15%;
+	margin-right: 15%;
 }

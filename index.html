@@ -3,17 +3,24 @@
 <head>
 	<title>Stemwijzer</title>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-	<main>
-	<img id="main-logo" src="img/logo-stemwijzer.svg">
-	<h2>StemWijzer Tweede Kamer 2017</h2>
-	<h1 id="title">
-		<script type="text/javascript">
-			document.getElementById("title").innerHTML = "Test uw politieke voorkeur aan de hand van 30 stellingen";		
-		</script>
-	</h1>
+<body class="row">
+
+	<main class="col-8">
+		<img id="main-logo" src="img/logo-stemwijzer.svg" alt="main logo">
+		<h2>StemWijzer Tweede Kamer 2017</h2>
+		<h1 id="title">
+			<script type="text/javascript">
+				document.getElementById("title").innerHTML = "Test uw politieke voorkeur aan de hand van 30 stellingen";		
+			</script>
+		</h1>
 	</main>
+	<footer class="col-4">
+		<img id="logo-ev" src="img/logo-1v.svg" alt="logo een vandaag">
+		<p class="main-selection">Deze partijen doen mee</p>
+		<p class="main-selection">Deze partijen doen niet mee</p>
+	</footer>
 </body>
 </html>
