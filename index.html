@@ -8,19 +8,32 @@
 </head>
 <body class="row">
 
-	<main class="col-8">
-		<img id="main-logo" src="img/logo-stemwijzer.svg" alt="main logo">
-		<h2>StemWijzer Tweede Kamer 2017</h2>
-		<h1 id="title">
-			<script type="text/javascript">
-				document.getElementById("title").innerHTML = "Test uw politieke voorkeur aan de hand van 30 stellingen";		
-			</script>
-		</h1>
+	<main>
+		<div id="homepage">		
+			<img id="main-logo" src="img/logo-stemwijzer.svg" alt="main logo">
+			
+			<h2>StemWijzer Tweede Kamer 2017</h2>
+			
+			<p class="title" id="title">Test uw politieke voorkeur aan de hand van </p>
+			<p class="title" id="questionCount"></p>
+			<p class="title">stellingen</p>
+
+			<button class="btn btn-primary" id="start">Start</button>
+		</div>
+
+		<div id="questions">
+			<button class="btn btn-primary" id="last">Back</button>
+			<h1 id="question"></h1>
+			<button class="btn btn-primary options" id="agree">Eens</button>
+			<button class="btn btn-primary options" id="none">Geen van beide</button>
+			<button class="btn btn-primary options" id="Disagree">Oneens</button>
+			<button class="btn btn-primary options" id="skip">Sla deze vraag over</button>
+		</div>
+		<div id="results">
+			
+		</div>
 	</main>
-	<footer class="col-4">
-		<img id="logo-ev" src="img/logo-1v.svg" alt="logo een vandaag">
-		<p class="main-selection">Deze partijen doen mee</p>
-		<p class="main-selection">Deze partijen doen niet mee</p>
-	</footer>
+	<script src="js/data.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>

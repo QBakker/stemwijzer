@@ -9,17 +9,24 @@ body {
 
 main,footer {
 	padding: 5%;
-	margin: 30px auto;
+	margin: 0px auto;
 }
 
 main {
 	background-color: #fff;
-	width: 60%;
+	width: 90%;
 }
 
-footer {
-	background-color: #34b4dc;
-	width: 30%;
+#homepage {
+	display: block;
+}
+
+#questions {
+	display: none;
+}
+
+#results {
+	display: none;
 }
 
 #main-logo {
@@ -27,9 +34,18 @@ footer {
 	width: 331px;
 }
 
-#logo-ev {
-	width: 173px;
-    height: 36px;
+#start {
+	display: block;
+	color: #fff;
+	background-color: #000;
+	border-color: #000;
+}
+
+.title {
+	display: inline;
+	color: #01B4DC;
+	font-size: 33px;
+	font-weight: bold;
 }
 
 .main-selection{
@@ -40,4 +56,8 @@ footer {
 .row {
 	margin-left: 15%;
 	margin-right: 15%;
+}
+
+.col-8 {
+	padding: 5em 0%;
 }
