@@ -1,4 +1,4 @@
-title = document.getElementById('title');
+const title = document.getElementById('title');
 
 const start = document.getElementById('start');
 
@@ -12,12 +12,14 @@ const question = document.getElementById('question');
 
 const last = document.getElementById('last');
 
-const option1 = document.getElementById('option1');
-const option2 = document.getElementById('option2');
-const option3 = document.getElementById('option3');
-const option4 = document.getElementById('option4');
+const pro = document.getElementById('pro');
+const none = document.getElementById('none');
+const contra = document.getElementById('contra');
+const skip = document.getElementById('skip');
 
 anwser = [];
+
+var count = 0;
 
 window.onload = function()
 {
@@ -43,14 +45,62 @@ function startQuiz()
 	questions.style.display = 'block';
 	results.style.display = 'none';
 
+	pro.addEventListener('click', awnser);
+	none.addEventListener('click', awnser);
+	contra.addEventListener('click', awnser);
+	skip.addEventListener('click', awnser);
+
 	last.addEventListener('click', startPage);
 
-	subjects.forEach(function(subject){
+	question.innerHTML = count + 1 + '. ' + a;
+
+
+
+}
+
+
+function awnser(value)
+{
+	// console.log(value.target.id);
+	// console.log(none);
+	// console.log(contra);
+	// console.log(skip);
+	
+	switch (value.target.id)
+	{
+		case "pro":
+		console.log("Eens");
+		break;
+		case "none":
+		console.log("Geen van beide");
+		break;
+		case "contra":
+		console.log("oneens");
+		break;
+		case "skip":
+		console.log("skip");
+	}
+}
+
+function counter()
+{
+	if (anwserClick = true) {
+
+		count ++;
+	} else if (anserClick = false ) {
+
+		count --;
+	} else {
+		
+	}
+}
+
+// Hier halen we de statement op
+function getStatement()
+{
+	 subjects.forEach(function(subject){
 		a = subject['title'];
 	})
-	console.log(a);
-
-	question.innerHTML = a;
 }
 
 function back()
