@@ -19,7 +19,7 @@ const skip = document.getElementById('skip');
 
 anwser = [];
 
-var count = 0;
+var counter = 0;
 
 window.onload = function()
 {
@@ -40,7 +40,7 @@ function startPage()
 // inladen van de het vragen scherm
 function startQuiz()
 {
-	var a = null;
+
 	homepage.style.display = 'none';
 	questions.style.display = 'block';
 	results.style.display = 'none';
@@ -50,21 +50,23 @@ function startQuiz()
 	contra.addEventListener('click', awnser);
 	skip.addEventListener('click', awnser);
 
-	last.addEventListener('click', startPage);
-
-	question.innerHTML = count + 1 + '. ' + a;
-
-
-
+	last.addEventListener('click', back);
+	
+	getStatement();
 }
 
+function back()
+{
+	if (counter === 0) {
+		startPage();
+	} else {
+		counter--;
+		getStatement();
+	}
+}
 
 function awnser(value)
 {
-	// console.log(value.target.id);
-	// console.log(none);
-	// console.log(contra);
-	// console.log(skip);
 	
 	switch (value.target.id)
 	{
@@ -80,36 +82,12 @@ function awnser(value)
 		case "skip":
 		console.log("skip");
 	}
-}
-
-function counter()
-{
-	if (anwserClick = true) {
-
-		count ++;
-	} else if (anserClick = false ) {
-
-		count --;
-	} else {
-		
-	}
+	counter++;
+	getStatement();
 }
 
 // Hier halen we de statement op
 function getStatement()
 {
-	 subjects.forEach(function(subject){
-		a = subject['title'];
-	})
-}
-
-function back()
-{
-
+	question.innerHTML = counter + 1 + '. ' + subjects[counter].title;
 }	
-
-// de functie om naar de volgende vraag te gaan
-function nextQuestion() 
-{
-
-}
