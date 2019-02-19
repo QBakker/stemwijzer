@@ -17,7 +17,7 @@ const none = document.getElementById('none');
 const contra = document.getElementById('contra');
 const skip = document.getElementById('skip');
 
-anwser = [];
+answers = [];
 
 var counter = 0;
 
@@ -26,7 +26,7 @@ window.onload = function()
 	startPage();
 }
 
-// inladen van de homepage
+// Deze functie zorgt voor het inladen van de homepage
 function startPage()
 {
 	homepage.style.display = 'block';
@@ -37,7 +37,7 @@ function startPage()
 	start.addEventListener('click', startQuiz);
 }
 
-// inladen van de het vragen scherm
+// Deze functie zorgt voor het inladen de het vragen scherm
 function startQuiz()
 {
 
@@ -45,16 +45,23 @@ function startQuiz()
 	questions.style.display = 'block';
 	results.style.display = 'none';
 
-	pro.addEventListener('click', awnser);
-	none.addEventListener('click', awnser);
-	contra.addEventListener('click', awnser);
-	skip.addEventListener('click', awnser);
+	pro.addEventListener('click', answer);
+	none.addEventListener('click', answer);
+	contra.addEventListener('click', answer);
+	skip.addEventListener('click', answer);
 
 	last.addEventListener('click', back);
 	
 	getStatement();
 }
-
+// Deze functie zorgt voor de result pagina
+function result()
+{
+	homepage.style.display = 'none';
+	questions.style.display = 'none';
+	results.style.display = 'block';	
+}
+// Deze functie zorgt ervoor dat je terug door de vragen heen kan
 function back()
 {
 	if (counter === 0) {
@@ -65,29 +72,50 @@ function back()
 	}
 }
 
-function awnser(value)
+// Deze functie bekijkt welk antwoord ingevuld
+function answer(value)
 {
-	
 	switch (value.target.id)
 	{
 		case "pro":
-		console.log("Eens");
-		break;
+			answers[counter] = value.target.id;
+			console.log(answers);
+			break;		
+
 		case "none":
-		console.log("Geen van beide");
+			answers[counter] = value.target.id;
+			console.log(answers);
 		break;
+
 		case "contra":
-		console.log("oneens");
+			answers[counter] = value.target.id;
+			console.log(answers);
 		break;
+
 		case "skip":
-		console.log("skip");
+			answers[counter] = value.target.id;
+			console.log(answers);
+		break;
 	}
 	counter++;
+	console.log(counter);
 	getStatement();
 }
 
-// Hier halen we de statement op
+// Hier wordt de statement opgehaald
+// ook word hier gekeken welke vraag opgehaald word. Als het de laatste is wordt er gelinked naar de resultaten.
+
 function getStatement()
 {
-	question.innerHTML = counter + 1 + '. ' + subjects[counter].title;
+	if (counter === subjects.length) {
+		console.log("Hier word nog aan gewerkt");
+		result();
+	} else if (counter <= subjects.length) {
+		question.innerHTML = counter + 1 + '. ' + subjects[counter].title;
+	} else {
+		question.innerHTML = "Something went wrong";
+	}
 }	
+
+
+
