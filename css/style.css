@@ -1,3 +1,5 @@
+/* General */
+
 body {
 	background-image: url("../img/background.jpg");
 	background-repeat: no-repeat;
@@ -7,21 +9,40 @@ body {
 	position: relative;
 }
 
-main,footer {
-	padding: 5%;
-	margin: 0px auto;
-}
-
 main {
 	background-color: #fff;
 	width: 90%;
 }
 
-#homepage {
+main,footer {
+	padding: 5%;
+	margin: 0px auto;
+}
+
+body.row {
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+/*Homepage Section*/
+
+section#homepage {
 	display: block;
 }
 
-#start {
+img#main-logo {
+	height: 56px;
+	width: 331px;
+}
+
+p.title {
+	display: inline;
+	color: #01B4DC;
+	font-size: 33px;
+	font-weight: bold;
+}
+
+button#start {
 	display: block;
 	color: #fff;
 	background-color: #000;
@@ -29,11 +50,14 @@ main {
 	min-width: 188px;
 }
 
-#questions {
+
+/* Question Section */
+
+section#questions {
 	display: none;
 }
 
-#last {
+button#questionBack {
 	background-color: #E7EAEB;
 	border-color: #E7EAEB;
 	width: 50px;
@@ -41,24 +65,24 @@ main {
 	border-radius: 50px;
 }
 
-#question {
+h1#question {
 	color: #00B5D8;
 	margin-bottom: 25px;
 }
 
-#statement {
+p#statement {
 	font-size: 25px;
 	margin-bottom: 25px;
 }
 
-#skip {
+button#skip {
 	float: right;
 	background-color: #fff;
 	border-color: #fff;
 	color: #9c9c9c;
 }
 
-.options {
+button.options {
 	background-color: #000;
 	color: #fff;
 	border-color: #000;
@@ -67,34 +91,19 @@ main {
 	margin-bottom: 5%;
 }
 
-.options:hover {
+button.options:hover {
 	background-color: #00B5D8;
 	border-color: #00B5D8;
 }
 
-#results {
+
+/* Result Section*/
+
+section#results {
 	display: none;
 }
 
-#main-logo {
-	height: 56px;
-	width: 331px;
+svg {
+	margin-right: 25px;
 }
 
-
-.title {
-	display: inline;
-	color: #01B4DC;
-	font-size: 33px;
-	font-weight: bold;
-}
-
-.main-selection{
-	font-size: 18px;
-	color: #fff;
-}
-
-.row {
-	margin-left: 15%;
-	margin-right: 15%;
-}
