@@ -7,10 +7,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body class="row">
+<body>
 
-	<main>
-		<section id="homepage">		
+	<main class="col-8">
+
+		<section id="homepage" class="row col-8">		
 			<img id="main-logo" src="img/logo-stemwijzer.svg" alt="main logo">
 			
 			<h2>StemWijzer Tweede Kamer 2017</h2>
@@ -20,27 +21,33 @@
 			<p class="title">stellingen</p>
 
 			<button class="btn btn-primary" id="start">Start</button>
+
 		</section>
 
-		<section id="questions">
+		<section id="homeParties" class="col-4">
+			
+		</section>
+
+		<section id="questions" class="row">
 			<button class="btn btn-primary" id="questionBack"><img src="img/icon-arrow-back.svg"></button>
 
 			<h1 id="question"></h1>
 			<p id="statement"></p>
 
-			<button class="btn btn-primary options" id="pro">Eens</button>
-			<button class="btn btn-primary options" id="none">Geen van beide</button>
-			<button class="btn btn-primary options" id="contra">Oneens</button>
-			<button class="btn btn-primary options" id="skip">Sla deze vraag over <img id="arrowNext" src="img/icon-backspace-right.svg"></button>
+				<button class="btn btn-primary options" id="pro">Eens</button>
+				<button class="btn btn-primary options" id="none">Geen van beide</button>
+				<button class="btn btn-primary options" id="contra">Oneens</button>
+				<button class="btn btn-primary options" id="skip">Sla deze vraag over <img id="arrowNext" src="img/icon-backspace-right.svg"></button>	
 
 		</section>
 
-		<section id="results">
+		<section id="results" class="row">
 			<button class="btn btn-primary" id="resultBack"><img src="img/icon-arrow-back.svg"></button>
 
 			<h1 id="resultTitle">Uw mening komt het best over met:</h1>
-			<h2 id="partij1"></h2>
-			<h2 id="partij2"></h2>
+			<h2 id="firstPartyElement"></h2>
+			<h2 id="secondPartyElement"></h2>
+			<h2 id="thirdPartyElement"></h2>
 			<article> 
 				<svg height="100" width="100">
 					<circle cx="50" cy="50" r="50" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
@@ -55,8 +62,13 @@
 					<circle cx="50" cy="50" r="40" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
 				</svg>
 			</article>
+
+			<ul id="otherResults">
+				
+			</ul>
 		</section>
 	</main>
+
 	<script src="js/data.js"></script>
 	<script src="js/script.js"></script>
 </body>

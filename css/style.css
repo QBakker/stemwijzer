@@ -19,7 +19,7 @@ main,footer {
 	margin: 0px auto;
 }
 
-body.row {
+section.row {
 	margin-left: 15%;
 	margin-right: 15%;
 }
@@ -55,6 +55,7 @@ button#start {
 
 section#questions {
 	display: none;
+	margin: 50px auto;
 }
 
 button#questionBack {
@@ -63,6 +64,7 @@ button#questionBack {
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
+	margin-bottom: 100px;
 }
 
 h1#question {
@@ -73,6 +75,7 @@ h1#question {
 p#statement {
 	font-size: 25px;
 	margin-bottom: 25px;
+	min-height: 150px;
 }
 
 button#skip {
