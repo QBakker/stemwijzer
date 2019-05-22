@@ -10,62 +10,69 @@
 <body>
 
 	<main class="col-8">
+		<button class="btn btn-primary" id="backButton"><img src="img/icon-arrow-back.svg"></button>
 
 		<section id="homepage" class="row col-8">		
 			<img id="main-logo" src="img/logo-stemwijzer.svg" alt="main logo">
 			
-			<h2>StemWijzer Tweede Kamer 2017</h2>
+			<h2>StemWijzer Tweede Kamer</h2>
 			
 			<p class="title" id="title">Test uw politieke voorkeur aan de hand van </p>
 			<p class="title" id="questionCount"></p>
 			<p class="title">stellingen</p>
 
-			<button class="btn btn-primary" id="start">Start</button>
+			<button class="btn btn-primary btn-lg btn-outline-dark" id="start">Start</button>
 
-		</section>
-
-		<section id="homeParties" class="col-4">
-			
 		</section>
 
 		<section id="questions" class="row">
-			<button class="btn btn-primary" id="questionBack"><img src="img/icon-arrow-back.svg"></button>
-
+			
 			<h1 id="question"></h1>
 			<p id="statement"></p>
 
+			<article id="openQuestions">
+				<div id="importantCheckbox">
+						<p>Extra belangrijk:</p>
+						<input type="checkbox" id="isImportant">
+				</div>
+				
 				<button class="btn btn-primary options" id="pro">Eens</button>
 				<button class="btn btn-primary options" id="none">Geen van beide</button>
 				<button class="btn btn-primary options" id="contra">Oneens</button>
 				<button class="btn btn-primary options" id="skip">Sla deze vraag over <img id="arrowNext" src="img/icon-backspace-right.svg"></button>	
+			</article>
+			
+			<article id="choices">
+				<button class="btn btn-primary options" id="nextPage">Naar resultaat</button>
+
+				<h2>Kies de partijen die u mee wilt nemen in het resultaat</h2>
+
+				<button class="btn btn-primary selection"  id="largeParties">Grote partijen</button>
+				<button class="btn btn-primary selection" id="secularParties">Seculiere partijen</button>
+				<button class="btn btn-primary selection" id="noParties">Verwijder selectie</button>
+				
+				<ul class="list-group" id="partyList">
+
+				</ul>
+			</article>
 
 		</section>
 
 		<section id="results" class="row">
-			<button class="btn btn-primary" id="resultBack"><img src="img/icon-arrow-back.svg"></button>
 
 			<h1 id="resultTitle">Uw mening komt het best over met:</h1>
-			<h2 id="firstPartyElement"></h2>
-			<h2 id="secondPartyElement"></h2>
-			<h2 id="thirdPartyElement"></h2>
-			<article> 
-				<svg height="100" width="100">
-					<circle cx="50" cy="50" r="50" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
-					<circle cx="50" cy="50" r="40" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
-				</svg>
-				<svg height="100" width="100">
-					<circle cx="50" cy="50" r="50" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
-					<circle cx="50" cy="50" r="40" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
-				</svg>
-				<svg height="100" width="100">
-					<circle cx="50" cy="50" r="50" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
-					<circle cx="50" cy="50" r="40" fill="#fff" stroke="#000" stroke-width="0.5"></circle>
-				</svg>
+			<h2 id="match"></h2>
+			<article>
+
+				<h2 id="firstPartyElement"></h2> 
+				<h2 id="secondPartyElement"></h2>
+				<h2 id="thirdPartyElement"></h2>
+
+				<ul id="otherResults">
+					
+				</ul>
 			</article>
 
-			<ul id="otherResults">
-				
-			</ul>
 		</section>
 	</main>
 

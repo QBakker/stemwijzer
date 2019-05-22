@@ -1,21 +1,33 @@
-const title = document.getElementById('title');
-
 const start = document.getElementById('start');
 
 const homepage = document.getElementById('homepage');
 const questions = document.getElementById('questions');
 const results = document.getElementById('results');
 
+const openQuestions = document.getElementById('openQuestions');
+const choices = document.getElementById('choices');
+
+const partyList = document.getElementById('partyList');
+const nextPage = document.getElementById('nextPage');
+
 const question = document.getElementById('question');
 const statement = document.getElementById('statement');
 
-const questionBack = document.getElementById('questionBack');
-const resultBack = document.getElementById('resultBack');
+const backButton = document.getElementById('backButton');
+
+const isImportant = document.getElementById('isImportant');
 
 const pro = document.getElementById('pro');
 const none = document.getElementById('none');
 const contra = document.getElementById('contra');
 const skip = document.getElementById('skip');
+const arrowNext = document.getElementById('arrowNext');
+
+const match = document.getElementById('match');
+
+const largeParties = document.getElementById('largeParties');
+const secularParties = document.getElementById('secularParties');
+const noParties = document.getElementById('noParties');
 
 const firstPartyElement = document.getElementById('firstPartyElement');
 const secondPartyElement = document.getElementById('secondPartyElement');
@@ -23,183 +35,336 @@ const thirdPartyElement = document.getElementById('thirdPartyElement');
 
 const otherResults = document.getElementById('otherResults');
 
-var answers = [];
+let answers = [];
+let counter = 0;
+let choicesStep = false;
 
-var counter = 0;
+let choicesLoaded = false;
 
-window.onload = function()
-{
-	startPage();
-	// result();
+window.onload = function () {
+    startPage();
+};
+
+// This is the function that starts onload that makes the homepage visable.
+function startPage() {
+    homepage.style.display = 'block';
+    questions.style.display = 'none';
+    results.style.display = 'none';
+
+    backButton.style.display = 'none';
+
+    document.getElementById('questionCount').innerHTML = subjects.length;
+
+    start.addEventListener('click', startQuiz);
+
+    addValues();
 }
 
-// Deze functie zorgt voor het inladen van de homepage en de bijbehoordende elementen.
-function startPage()
-{
-	homepage.style.display = 'block';
-	questions.style.display = 'none';
-	results.style.display = 'none';
-
-	document.getElementById('questionCount').innerHTML = subjects.length;
-	start.addEventListener('click', startQuiz);
+function addValues() {
+    // This for loop gives all the parties a count and a mark property with a default value.
+    for (let i = 0; i < parties.length; i++) {
+        let party = parties[i];
+        party['count'] = 0;
+        party['marked'] = false;
+    }
 }
 
-// Deze functie zorgt voor het inladen de het vragen scherm en de elementen die daar bij horen.
-function startQuiz()
-{
+// This function contains the question display and calls the 'setStatement()' function to place the chosen aswer.
+function startQuiz() {
 
-	homepage.style.display = 'none';
-	questions.style.display = 'block';
-	results.style.display = 'none';
+    homepage.style.display = 'none';
+    questions.style.display = 'block';
+    results.style.display = 'none';
 
-	pro.addEventListener('click', setAnswer);
-	none.addEventListener('click', setAnswer);
-	contra.addEventListener('click', setAnswer);
-	skip.addEventListener('click', setAnswer);
+    backButton.style.display = 'block';
 
-	questionBack.addEventListener('click', back);
-	
-	setStatement();
+    openQuestions.style.display = 'block';
+    choices.style.display = 'none';
+
+    pro.addEventListener('click', setAnswer);
+    none.addEventListener('click', setAnswer);
+    contra.addEventListener('click', setAnswer);
+    skip.addEventListener('click', setAnswer);
+
+    backButton.addEventListener('click', goBack);
+
+    setStatement();
 }
 
-// Deze functie zorgt voor de result pagina en de elementen die hier bij horen.
-function result()
-{
-	homepage.style.display = 'none';
-	questions.style.display = 'none';
-	results.style.display = 'block';
+// This function makes it possible to navigate back through the questions.
+function goBack() {
+    // when the counter is 0 it means that there are no more questions to go back to so the homepage has to be shown.
+    if (counter === 0) {
+        // back to homepage
+        startPage();
 
-	resultBack.addEventListener('click', back);	
-	checkAnswer();
-	showResult();
+        // when the counter is the same number as there are subjects, it means that you wanna go back to the last question from the choices screen.
+    } else if (counter === subjects.length) {
+        startQuiz();
+
+        // if both conditions are not true, then the counter loses 1 so you go back just 1 question.
+    } else {
+        counter--;
+        startQuiz();
+    }
 }
 
+// This function checks the eventListner and the important checkbox.
+// It adds the id of the pressed button (pro,none,contra or skip) and the 'checked' to the answers array.
+function setAnswer(value) {
+    answers[counter] = {
+        "position": value.target.id,
+        "isImportant": isImportant.checked
+    };
 
+    counter++;
+    setStatement();
+}
 
-// Hier wordt de statement opgehaald
-// ook word hier gekeken welke vraag opgehaald word. Als het de laatste is wordt er gelinked naar de resultaten.
+// This function contains a if else to check by the counter which question needs to be displayed, if its the last one there will be linked to showChoices().
+function setStatement() {
+    if (counter === subjects.length && choicesStep === false) {
+        showChoices();
 
-function setStatement()
-{
-	if (counter === subjects.length) {
-		result();
-	} else if (counter <= subjects.length) {
-		question.innerHTML = counter + 1 + '. ' + subjects[counter].title;
-		statement.innerHTML = subjects[counter].statement;
-	} else {
-		question.innerHTML = "Something went wrong, please try again later";
+    } else if (counter === subjects.length && choicesStep === true) {
+        counter = subjects.length - 1;
+        setStatement();
+    } else if (counter < subjects.length) {
+
+        question.innerHTML = counter + 1 + '. ' + subjects[counter].title;
+        statement.innerHTML = subjects[counter].statement;
+
+        choicesStep = false;
+        checkStatement();
+    }
+}
+
+// This function makes it possible to remember if a question is marked as important.
+function checkStatement() {
+    if (answers[counter] === undefined) {
+        isImportant.checked = false;
+    } else {
+        isImportant.checked = answers[counter].isImportant;
+    }
+}
+
+// This function create a page where there has to be chosen a preference for at least 3 parties.
+function showChoices() {
+    choicesStep = true;
+
+    openQuestions.style.display = 'none';
+    choices.style.display = 'block';
+
+    backButton.addEventListener('click', goBack);
+
+    question.innerHTML = 'Welke partijen wilt u meenemen in het resultaat?';
+    statement.innerHTML = 'U kunt kiezen voor grote partijen, daarbij nemen we de partijen mee die in de peilingen op minimaal één zetel staan. U kunt kiezen voor seculiere partijen. Maak tenminste een selectie van drie partijen.';
+
+    nextPage.addEventListener('click', result);
+
+    createParties();
+
+    largeParties.addEventListener('click', largePartiesSelection);
+    secularParties.addEventListener('click', secularPartiesSelection);
+    noParties.addEventListener('click', noPartiesSelection);
+}
+
+// This function creates the list of parties that are available, it also gives them checkboxes.
+function createParties() {
+    if (!choicesLoaded) {
+
+        for (let i = 0; i < parties.length; i++) {
+            const currIndex = i;
+
+            let createLi = document.createElement('li');
+            createLi.className = "list-group-item";
+
+            let checkbox = document.createElement('input');
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('id', parties[i].name);
+            checkbox.onclick = function () {
+                setParty(currIndex);
+            };
+            createLi.appendChild(checkbox);
+
+            let liContent = document.createTextNode(parties[i].name);
+            createLi.appendChild(liContent);
+
+            partyList.appendChild(createLi);
+        }
+        choicesLoaded = true;
+    }
+}
+
+// This function creates a selection of all parties with more then 1 seat.
+function largePartiesSelection() {
+    for (let i = 0; i < parties.length; i++) {
+        let party = parties[i];
+        if (party.size >= 1) {
+            party.marked = true;
+
+            let partyName = party.name;
+            document.getElementById(partyName).checked = true;
+        }
+    }
+}
+
+// This function creates a selection of all secular parties.
+function secularPartiesSelection() {
+    for (let i = 0; i < parties.length; i++) {
+        let partySecular = parties[i].secular;
+        if (partySecular) {
+            let party = parties[i];
+            party.marked = true;
+
+            let partyName = party.name;
+            document.getElementById(partyName).checked = true;
+        }
+    }
+}
+
+// This function clears the selection.
+function noPartiesSelection() {
+    for (let i = 0; i < parties.length; i++) {
+        let party = parties[i];
+        party['marked'] = false;
+
+        let partyErase = parties[i].name;
+
+        document.getElementById(partyErase).checked = false;
+    }
+}
+
+// This function contains a check to see if the party is added to a array.
+function setParty(index) {
+    // parties[index].marked = !parties[index].marked;
+    if (parties[index].marked) {
+        parties[index].marked = false;
+    } else {
+        parties[index].marked = true;
+    }
+}
+
+// This function creates a page where the results are displayed.
+function result() {
+    let markCounter = 0;
+    for (let k = 0; k < parties.length; k++) {
+        if (parties[k].marked) {
+            markCounter++;
+        }
+    }
+
+    if (markCounter >= 3) {
+
+        choicesStep = false;
+
+        homepage.style.display = 'none';
+        questions.style.display = 'none';
+        results.style.display = 'block';
+
+        backButton.addEventListener('click', goBack);
+
+        checkAnswer();
+        showResult();
+    } else {
+        alert('Selecteer ten minste 3 partijen.');
+    }
+}
+
+// Resets the count for all parties.
+function resetPartyCount() {
+	for (let i = 0; i < parties.length; i++) {
+		parties[i].count = 0;
 	}
 }
 
-// Deze functie bekijkt welk antwoord ingevuld door de eventlistener uit te lezen.
-// De waarde word dan gecheckt en vervolgens in opgeslagen in de 'answers' array opgeslagen 
-// op de juiste plek door de counter value die meegegeven word.
+// When the last answer is filled, this function looks at all the parties which answers are the same.
+function checkAnswer() {
 
-function setAnswer(value)
-{
-	answers[counter] = value.target.id;
-	
-	// console.log(answers);
-	
-	counter++;
-	
-	setStatement();
-}
+	//To make sure the values wouldn't stack.
+	resetPartyCount();
 
-// Deze functie zorgt ervoor dat je terug door de vragen kan navigeren.
-// Ook word er gecheckt of het de eerste vraag is als dat zo is dan word er terug gestuurd naar de homepage
-function back()
-{
-	if (counter === 0) {
-		startPage();
-	} else {
-		counter--;
-		startQuiz();
-	}
-}
-
-// wanneer de laatste vraag is ingevuld worden in deze functie alle antwooden naast de antwoorden van alle partijen gezet en gekeken
-// hoeveel vragen gelijk waren aan alle partijen apart.
-function checkAnswer()
-{
-	// Geef alle partijen een standaard count waarde van 0. 
-	for (var i = 0; i < parties.length; i++) {
-		var party = parties[i];
-		party['count'] = 0;
-	}
-
-	// Hier pak je alle antwoorden apart en haal je ze op
-	for (var i = 0; i < subjects.length; i++) {
+	// this loop separate the answers in the array.
+	for (let i = 0; i < answers.length; i++) {
+		let answer = answers[i];
+		let subjectParties = subjects[i].parties;
 		
-		// ieder antwoord voor elke vraag word iedere loop opgeslagen in answer.
-		var answer = answers[i];
-
-		// als er op skip gedrukt is gaat hij door naar het volgende antwoord
-		if (answer === "skip") {
-			// continue zorgt ervoor dat hij alle code die verder uitgevoerd gaat worden in deze loop niet behandeld word
-			// maar direct doorgaat naar het volgende antwoord in de answers array.
-			continue;
-		}
-
-		var subject = subjects[i];
-
-		// Hier pak je iedere party apart uit de array van het subject.
-		for (var j = 0; j < subject.parties.length; j++) {
-
-			var subjectParty = subject.parties[j];
-			var subjectPartyPosition = subjectParty.position;
-
-			// Hier check je of het opgegeven antwoord gelijk is aan een van de partijen. aangezien 'subjectPartyPosition' vervangen word
-			// door alle partys op hun beurt.
-			if (subjectPartyPosition === answer) {
-
-				// Hier worden alle partijen bekeken of de naam van de partij overeenkomt met de naam van het subject.
-				for (var k = 0; k < parties.length; k++) {
-					var party = parties[k];
-					if (party.name === subjectParty.name) {
-						// hier wordt de party in opgeslagen waarvan de naam gelijk is aan de naam van het subject.
-						party.count ++;
-						// hier word de huidige for loop beeindigd. de resterende for loops blijven wel doorgaan. 
-						// De code hieronder blijft doorgaan.
-						break;
-					}
+		// Loops trough all the parties of the subjects separately.
+		for (let j = 0; j < subjectParties.length; j++) {
+			let subjectParty = subjectParties[j];
+			let answerPosition = answer.position;
+			
+			// Checks if position of the party is the same as the given answer, when it's not, the next party will be checked.
+			if (subjectParty.position !== answerPosition) {
+				continue;
+			}
+			
+			let foundParty = null;
+			let subjectPartyName = subjectParty.name;
+			
+			// The loop searches for a party that has the same name.
+			for (let k = 0; k < parties.length; k++) {
+				if (parties[k].name === subjectPartyName) {
+					foundParty = parties[k];
+					break;
 				}
 			}
 
+			// If the party is not found in the loop before, this condition makes sure that the loop will start the next loop.
+			if (foundParty === null) {
+				continue;
+			}
+
+			let answerIsImportant = answer.isImportant;
+
+			// Checks if the important checkbox is checked. When it is, there will be added another count.
+			if (answerIsImportant) {
+				foundParty.count++;
+			}
+
+			// When this part of the function has been reached, it means that the party has the same answer as the one given and the name of the party is the same as the name in the "parties" array where the count is stored.
+			foundParty.count++;
 		}
-	}
-
-}
-	
-function showResult()
-{
-	
-	parties.sort(function(a,b) {
-		
-		return b.count-a.count;
-
-	});
-
-	firstPartyElement.innerHTML = parties[0].name;
-	secondPartyElement.innerHTML = parties[1].name;
-	thirdPartyElement.innerHTML = parties[2].name;
-
-	var maxParties = 6;
-
-	if (maxParties >= 9) {
-		maxParties = 9;
-	}
-
-	for (var i = 3; i < maxParties; i++) {
-		
-		var party = parties[i];
-		var li = document.createElement('li');
-
-		li.innerHTML = party.name + " with score " + party.count;
-		otherResults.appendChild(li);
 
 	}
-	// console.log(parties);
 }
 
 
+// This function creates the result page
+function showResult() {
+
+    otherResults.innerHTML = '';
+
+    let markedParties = [];
+    // Go trough all of the parties.
+    for (let i = 0; i < parties.length; i++) {
+
+        const party = parties[i];
+        // If a party is marked, we want to add it to markedParties.
+        if (party.marked) {
+            // markedParties[i] = party;
+            markedParties.push(party);
+        }
+
+    }
+
+    // This inside sort function makes sure all the data is sorted by the count from high to low value.
+    markedParties.sort(function (a, b) {
+        return b.count - a.count;
+    });
+
+    match.innerHTML = '1# ' + markedParties[0].name + ' met: ' + markedParties[0].count + ' punten';
+
+    // These are the first 3 value's from the array which means that these had the most similar answers.
+    firstPartyElement.innerHTML = '1# ' + markedParties[0].name + ' met:  ' + markedParties[0].count + ' punten';
+    secondPartyElement.innerHTML = '2# ' + markedParties[1].name + ' met: ' + markedParties[1].count + ' punten';
+    thirdPartyElement.innerHTML = '3# ' + markedParties[2].name + ' met: ' + markedParties[2].count + ' punten';
+
+    for (let i = 3; i < markedParties.length; i++) {
+        let li = document.createElement('li');
+        li.innerHTML = markedParties[i].name + ' met: ' + markedParties[i].count + ' punten';
+
+        // The li will be placed inside the ul (otherResults).
+        otherResults.appendChild(li);
+    }
+}

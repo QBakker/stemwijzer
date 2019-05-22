@@ -15,13 +15,25 @@ main {
 }
 
 main,footer {
-	padding: 5%;
+	padding: 25px 5%;
 	margin: 0px auto;
 }
 
+p {
+	display: inline;
+}
+
+button#backButton {
+	background-color: #E7EAEB;
+	border-color: #E7EAEB;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+}
+
 section.row {
-	margin-left: 15%;
-	margin-right: 15%;
+	margin-left: 10%;
+	margin-right: 10%;
 }
 
 /*Homepage Section*/
@@ -31,6 +43,7 @@ section#homepage {
 }
 
 img#main-logo {
+	margin-top: 50px;
 	height: 56px;
 	width: 331px;
 }
@@ -44,9 +57,7 @@ p.title {
 
 button#start {
 	display: block;
-	color: #fff;
-	background-color: #000;
-	border-color: #000;
+	float: right;
 	min-width: 188px;
 }
 
@@ -55,16 +66,6 @@ button#start {
 
 section#questions {
 	display: none;
-	margin: 50px auto;
-}
-
-button#questionBack {
-	background-color: #E7EAEB;
-	border-color: #E7EAEB;
-	width: 50px;
-	height: 50px;
-	border-radius: 50px;
-	margin-bottom: 100px;
 }
 
 h1#question {
@@ -73,6 +74,7 @@ h1#question {
 }
 
 p#statement {
+	display: block;
 	font-size: 25px;
 	margin-bottom: 25px;
 	min-height: 150px;
@@ -85,13 +87,23 @@ button#skip {
 	color: #9c9c9c;
 }
 
+div#importantCheckbox {
+	text-align: right;
+	margin-bottom: 50px;
+}
+
+div#importantCheckbox > p {
+	display: inline;
+	font-weight: bold;
+}
+
 button.options {
 	background-color: #000;
 	color: #fff;
 	border-color: #000;
 	min-width: 188px;
 	margin-right: 1.33%;
-	margin-bottom: 5%;
+	margin-bottom: 2.5%;
 }
 
 button.options:hover {
@@ -99,6 +111,28 @@ button.options:hover {
 	border-color: #00B5D8;
 }
 
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+ul#partyList {
+	display: inline-block;
+}
+
+ul#partyList > li {
+	display: inline-block;
+	width: 33%;
+}
+
+input {
+	margin-right: 2%;
+	zoom: 1.5;
+}
+
+button.selection {
+	margin: 2% 1%;
+}
 
 /* Result Section*/
 
@@ -106,7 +140,16 @@ section#results {
 	display: none;
 }
 
-svg {
-	margin-right: 25px;
+h1#resultTitle {
+	color: #000;
+	text-align: center;
 }
 
+h2#match {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+section#results > article {
+	text-align: center;
+}
