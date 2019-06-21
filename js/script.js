@@ -106,6 +106,9 @@ function goBack() {
     } else {
         counter--;
         startQuiz();
+        
+        let previousAnswer = answers[counter].position;
+        document.getElementById(previousAnswer).classList.add("active");
     }
 }
 
@@ -116,7 +119,7 @@ function setAnswer(value) {
         "position": value.target.id,
         "isImportant": isImportant.checked
     };
-
+    
     counter++;
     setStatement();
 }
@@ -125,18 +128,42 @@ function setAnswer(value) {
 function setStatement() {
     if (counter === subjects.length && choicesStep === false) {
         showChoices();
-
+        
     } else if (counter === subjects.length && choicesStep === true) {
         counter = subjects.length - 1;
         setStatement();
     } else if (counter < subjects.length) {
-
         question.innerHTML = counter + 1 + '. ' + subjects[counter].title;
         statement.innerHTML = subjects[counter].statement;
+
+        removeActiveClass();
+        if (counter !== 0 && answers[counter] !== undefined){
+            addActiveClass();
+        }
 
         choicesStep = false;
         checkStatement();
     }
+}
+
+function addActiveClass() {
+    switch (answers[counter].position) {
+        case "pro":
+            pro.classList.add("active");
+        break;
+        case "none":
+            none.classList.add("active");
+        break;
+        case "contra":
+            contra.classList.add("active");
+        break;
+    }
+}
+
+function removeActiveClass() {
+    pro.classList.remove("active");
+    none.classList.remove("active");
+    contra.classList.remove("active");
 }
 
 // This function makes it possible to remember if a question is marked as important.
